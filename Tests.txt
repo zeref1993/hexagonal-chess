@@ -1,0 +1,65 @@
+
+Black StartUp:
+ [[k,[11,2,5]],[q,[10,1,7]],[r1,[8,1,9]],[r2,[11,4,3]],[b1,[11,1,6]],[b2,[10,2,6]],[b3,[9,3,6]],[n1,[9,1,8]],[n2,[11,3,4]],[p1,[7,1,10]],[p2,[7,2,9]],[p3,[7,3,8]],[p4,[7,4,7]],[p5,[7,5,6]],[p6,[8,5,5]],[p7,[9,5,4]],[p8,[10,5,3]],[p9,[11,5,2]]]
+
+White StartUp:
+ [[k,[2,11,5]],[q,[1,10,7]],[r1,[1,8,9]],[r2,[4,11,3]],[b1,[1,11,6]],[b2,[2,10,6]],[b3,[3,9,6]],[n1,[1,9,8]],[n2,[3,11,4]],[p1,[1,7,10]],[p2,[2,7,9]],[p3,[3,7,8]],[p4,[4,7,7]],[p5,[5,7,6]],[p6,[5,8,5]],[p7,[5,9,4]],[p8,[5,10,3]],[p9,[5,11,2]]]
+
+
+noPieceInWay(q,[1,10,7],[1,-1,0],2).
+
+Testing:
+[[[k,[3,11,4]],[q,[1,10,7]],[r1,[1,8,9]]],[[k,[11,3,4]],[q,[10,1,7]],[r1,[8,1,9]],[r2,[11,5,2]]]]
+
+
+[[[k,[21,8]],[q,[21,5]],[r1,[19,3]]],[[k,[5,8]],[q,[3,5]],[r1,[5,3]],[r2,[7,10]]]]
+
+---------------------------------------
+
+White StartUp:
+
+[[k,[g,1]],[q,[e,1]],[r1,[c,1]],[r2,[i,1]],[b1,[f,1]],[b2,[f,2]],[b3,[f,3]],[n1,[d,1]],[n2,[h,1]],[p1,[b,1]],[p2,[c,2]],[p3,[d,3]],[p4,[e,4]],[p5,[f,5]],[p6,[g,4]],[p7,[h,3]],[p8,[i,2]],[p9,[k,1]]]
+
+Black StartUp:
+
+[[k,[g,10]],[q,[e,10]],[r1,[c,8]],[r2,[i,8]],[b1,[f,11]],[b2,[f,10]],[b3,[f,9]],[n1,[d,9]],[n2,[h,9]],[p1,[b,7]],[p2,[c,7]],[p3,[d,7]],[p4,[e,7]],[p5,[f,7]],[p6,[g,7]],[p7,[h,7]],[p8,[i,7]],[p9,[k,7]]]
+
+
+
+
+Queries
+-------
+
+whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],P),\+displayBoard(P),isValid(P,1,[p5,[f,5]]),move([p5,[f,5]],1,P,PNew),move([p5,[f,5]],1,P,PNew2).
+
+Moving
+-------
+whiteStartPos(X),blackStartPos(Y),convertBoardFromUserToThreeForm([X,Y],P),\+displayBoard(P),nl,write(P),isValid(P,1,[p5,[f,6]]),write('Holla'),nl,move([p5,[f,6]],1,P,PNew),move([p4,[e,6]],2,PNew,PNew2),isValid(PNew2,1,[q,[d,3]]),write('QD3'),nl,nl,move([q,[c,3]],1,PNew2,PNew3).
+
+
+All Valid Posn:-
+---------------
+whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],_3),findAllValid(_3,2,[Piece,XX]).
+
+Check For Check:
+--------------
+whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],_3),\+displayBoard(_3),isValid(_3,1,[p5,[f,6]]),move([k,[g,9]],2,_3,_4),move([k,[g,8]],2,_4,_5),move([b2,[i,4]],1,_5,_6),\+displayBoard(_6),isKingAttacked(_6,2).
+
+
+ whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],_3),\+displayBoard(_3),isValid(_3,1,[p5,[f,6]]),move([k,[g,9]],2,_3,_4),move([p7,[h,6]],2,_4,_5),isValid(_5,1,[b2,[i,5]]),move([b2,[i,5]],1,_5,_6),move([k,[g,8]],2,_6,_7),move([b2,[f,11]],1,_7,_8),[W,_] = _8.
+
+
+Evaluation Of Score
+-------------------
+whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],_3),\+displayBoard(_3),isValid(_3,1,[p5,[f,6]]),move([k,[g,9]],2,_3,_4),move([p7,[h,6]],2,_4,_5),isValid(_5,1,[b2,[i,5]]),move([b2,[i,5]],1,_5,_6),move([k,[g,8]],2,_6,_7),move([b2,[f,11]],1,_7,_8),[W,B] = _8,evaluateScore(B,Score).
+
+
+Gain for each move
+-------------------
+whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],_3),\+displayBoard(_3),isValid(_3,1,[p5,[f,6]]),move([k,[g,9]],2,_3,_4),move([p7,[h,6]],2,_4,_5),isValid(_5,1,[b2,[i,5]]),move([b2,[i,5]],1,_5,_6),move([k,[g,8]],2,_6,_7),makeAllPossibleMoves(_7,1,Gain).
+
+
+MiniMax
+---------
+whiteStartPos(_1),blackStartPos(_2),convertBoardFromUserToThreeForm([_1,_2],_3),\+displayBoard(_3),isValid(_3,1,[p5,[f,6]]),move([k,[g,9]],2,_3,_4),move([p7,[h,6]],2,_4,_5),isValid(_5,1,[b2,[i,5]]),move([b2,[i,5]],1,_5,_6),move([k,[g,8]],2,_6,_7),move([b2,[a,4]],1,_7,_8),selectBestMove(_8,2,Best). 
+
